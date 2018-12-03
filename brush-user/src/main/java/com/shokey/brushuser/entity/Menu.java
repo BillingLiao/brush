@@ -1,4 +1,7 @@
-package com.shokey.brushentity;
+package com.shokey.brushuser.entity;
+
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,6 +12,7 @@ import java.util.List;
  * @author Billing
  * @date 2018/11/27 10:11
  */
+@TableName("t_menu")
 public class Menu implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -16,6 +20,7 @@ public class Menu implements Serializable {
     /**
      * 菜单ID
      */
+    @TableId
     private Integer menuId;
 
     /**

@@ -1,4 +1,7 @@
-package com.shokey.brushentity;
+package com.shokey.brushuser.entity;
+
+import com.baomidou.mybatisplus.annotations.TableId;
+import com.baomidou.mybatisplus.annotations.TableName;
 
 import java.io.Serializable;
 
@@ -7,6 +10,7 @@ import java.io.Serializable;
  * @author Billing
  * @date 2018/11/27 10:17
  */
+@TableName("t_shop")
 public class Shop implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -14,6 +18,7 @@ public class Shop implements Serializable {
     /**
      * 店铺编号
      */
+    @TableId
     private Integer shopId;
 
     /**

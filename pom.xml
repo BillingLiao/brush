@@ -5,11 +5,11 @@
 
     <groupId>com.shokey</groupId>
     <artifactId>brush</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>1.0</version>
     <packaging>pom</packaging>
 
     <name>brush</name>
-    <description>你说我用汉字他会不会错</description>
+    <description>说明肯定能用中文</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -18,17 +18,22 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <modules>
+        <module>brush-admin</module> <!--后台管理模块-->
+        <module>brush-user</module> <!--前台接口-->
+        <module>brush-common</module> <!--公共资源-->
+        <module>brush-entity</module>
+        <module>brush-dao</module>
+    </modules>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
+        <junit.version>4.12</junit.version>
+        <jedis.version>2.9.0</jedis.version>
+        <mysql.connector.version>5.1.38</mysql.connector.version>
     </properties>
-
-    <modules>
-        <module>brush-admin</module>
-        <module>brush-entity</module>
-        <module>brush-dao</module>
-    </modules>
 
     <dependencies>
         <dependency>
@@ -40,6 +45,46 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${junit.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.security</groupId>
+            <artifactId>spring-security-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>${mysql.connector.version}</version>
         </dependency>
     </dependencies>
 
