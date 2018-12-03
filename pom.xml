@@ -6,10 +6,10 @@
     <groupId>com.shokey</groupId>
     <artifactId>brush</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>pom</packaging>
 
     <name>brush</name>
-    <description>Demo project for Spring Boot</description>
+    <description>你说我用汉字他会不会错</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
@@ -23,6 +23,12 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
     </properties>
+
+    <modules>
+        <module>brush-admin</module>
+        <module>brush-entity</module>
+        <module>brush-dao</module>
+    </modules>
 
     <dependencies>
         <dependency>
