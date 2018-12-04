@@ -1,7 +1,7 @@
 package com.shokey.brushadmin.handler;
 
-import com.brush.admin.config.CustomSecurityConfig;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.shokey.brushadmin.config.CustomSecurityConfig;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
