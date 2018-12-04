@@ -9,7 +9,7 @@ import java.io.Serializable;
  * @author Billing
  * @date 2018/11/27 10:17
  */
-@TableName
+@TableName("t_task")
 public class Task implements Serializable {
 
     private static final long serialVersionUID = 1L;
