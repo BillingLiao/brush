@@ -1,6 +1,7 @@
 package com.shokey.brushentity;
 
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -35,6 +36,7 @@ public class Role implements Serializable {
      */
     private String remark;
 
+    @TableField(exist = false)
     private List<Integer> menuIdList;
 
     /**

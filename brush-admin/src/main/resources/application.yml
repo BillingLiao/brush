@@ -13,7 +13,7 @@ spring:
     username: root
     password: 123456789
     dbcp2:
-      driver-class-name: com.mysql.cj.jdbc.Driver
+      driver-class-name: com.mysql.jdbc.Driver
   jackson:
     time-zone: GMT+8
     date-format: yyyy-MM-dd HH:mm:ss
@@ -27,3 +27,4 @@ spring:
         max-idle: 8
         max-wait:
     timeout: 5000ms
+

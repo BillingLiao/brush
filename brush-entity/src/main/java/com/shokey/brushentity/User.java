@@ -1,6 +1,7 @@
 package com.shokey.brushentity;
 
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 
@@ -58,7 +59,7 @@ public class User implements Serializable {
     /**
      * 邮箱
      */
-    private String email;
+//    private String email;//垃圾邮箱
 
     /**
      * 状态  0：禁用   1：正常
@@ -73,6 +74,7 @@ public class User implements Serializable {
     /**
      * 角色ID列表
      */
+    @TableField(exist = false)
     private List<Integer> roleIdList;
 
     public Integer getUserId() {
@@ -115,13 +117,13 @@ public class User implements Serializable {
         this.mobile = mobile;
     }
 
-    public String getEmail() {
-        return email;
-    }
+//    public String getEmail() {
+//        return email;
+//    }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
+//    public void setEmail(String email) {
+//        this.email = email;
+//    }
 
     public List<Integer> getRoleIdList() {
         return roleIdList;
