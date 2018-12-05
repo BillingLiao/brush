@@ -15,7 +15,7 @@
     <description>前台接口模块</description>
 
     <properties>
-        <mybatisplus.version>2.3</mybatisplus.version>
+        <mybatisplus.version>3.0.5</mybatisplus.version>
         <mybatisplus.spring.boot.version>1.0.5</mybatisplus.spring.boot.version>
     </properties>
 
@@ -32,6 +32,7 @@
             <artifactId>mybatis-plus</artifactId>
             <version>${mybatisplus.version}</version>
         </dependency>
+
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatisplus-spring-boot-starter</artifactId>

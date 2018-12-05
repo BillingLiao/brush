@@ -1,5 +1,6 @@
 package com.shokey.brushuser;
 
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
