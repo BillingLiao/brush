@@ -27,4 +27,7 @@ spring:
         max-idle: 8
         max-wait:
     timeout: 5000ms
-
+# 垃圾，并不会打印sql
+logging:
+  level:
+    com.example.demo.dao : debug
