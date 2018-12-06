@@ -18,4 +18,10 @@ public class UserController {
     public String adminInfo(){
         return "index";
     }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping("/")
+    public String adminInfos(){
+        return "index";
+    }
 }

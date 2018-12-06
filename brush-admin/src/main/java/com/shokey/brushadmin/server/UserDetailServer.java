@@ -1,6 +1,7 @@
 package com.shokey.brushadmin.server;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.shokey.brushdao.mapper.RoleMapper;
 import com.shokey.brushdao.mapper.UserMapper;
 import com.shokey.brushentity.Role;
@@ -32,11 +33,14 @@ public class UserDetailServer implements UserDetailsService {
         if (user == null)
             throw new UsernameNotFoundException("用户不存在");
         //查询权限
-        QueryWrapper<Role> rqw = new  QueryWrapper<>();
-        rqw.exists("select role_id from t_user_role where user_id = exists(select t_user.user_id from t_user where mobile = \""+s+"\")");
-        List<Role> roles = roleMapper.selectList(rqw);
+//        UpdateWrapper<Role> uqw = new  UpdateWrapper<>();
+//        System.out.println("用户："+s);
+//        uqw.setSql("select * from t_role where role_id = (select t_user_role.role_id from t_user_role where mobile = '"+s+"')");
+//        System.out.println(uqw.getSqlSelect());
+        List<Role> roles = roleMapper.findByMobile(s);
         List<GrantedAuthority> list=new ArrayList<>();
         for (Role role:roles) {
+            System.out.println("拥有的权限"+role.getRoleName());
             list.add(new SimpleGrantedAuthority(role.getRoleName()));
         }
         return new org.springframework.security.core.userdetails.User(user.getUserName(),user.getPassword(),list);
