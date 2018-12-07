@@ -8,7 +8,7 @@
 <h1>12月7日</h1>
 <p>改为远程mysql和redis</p>
 <p>更改mybatis-plus依赖</p>
-``` xml
+```
 <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
