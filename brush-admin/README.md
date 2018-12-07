@@ -8,8 +8,7 @@
 <h1>12月7日</h1>
 <p>改为远程mysql和redis</p>
 <p>更改mybatis-plus依赖</p>
-```
-<dependency>
+```<dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
             <version>3.0.2</version>
@@ -19,6 +18,5 @@
                     <groupId>org.apache.tomcat</groupId>
                 </exclusion>
             </exclusions>
- </dependency>
- ```
- <p>然鹅还是没有com.baomidou.mybatisplus.annotations.IdType这个包</p>
+ </dependency>```
+ <p>然鹅还是没有```com.baomidou.mybatisplus.annotations.IdType```这个包</p>
