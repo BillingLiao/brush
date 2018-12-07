@@ -84,6 +84,7 @@
             <version>1.0</version>
         </dependency>
         <!-- dao -->
+        <!-- mybatis -->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
