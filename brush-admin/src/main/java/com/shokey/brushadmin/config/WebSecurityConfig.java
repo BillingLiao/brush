@@ -62,6 +62,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/tikesignup").permitAll()
                 .antMatchers("/login").permitAll()
                 .antMatchers("/signup").permitAll()
+                .antMatchers("/fonts/**","/images/**","/js/**","/css/**","/vendors/**","/static/**").permitAll()//静态资源
+                .antMatchers("/404","/500").permitAll()//系统页面
                 .anyRequest().authenticated() //其他所有资源都需要认证，登陆后访问
                 //登陆处理
                 .and()
