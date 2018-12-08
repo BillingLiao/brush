@@ -16,14 +16,14 @@ public class SignupController {
 
     @RequestMapping("/signup")
     public String Signup(Model model){
-        return "signup";
+        return "pages/samples/register";
     }
 
     @PostMapping("/tikesignup")
     public String Signup(@RequestParam String phone, @RequestParam String pass, Model model) throws Exception {
         if (userServer.Signup(phone,pass))
-            return "login";
+            return "pages/samples/login";
         else
-            return "signup";
+            return "pages/samples/register";
     }
 }
