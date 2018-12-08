@@ -8,13 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 public class UserController {
 
-    @RequestMapping("/user")
-    public String userInfo(){
-        return "user";
-    }
-
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @RequestMapping("/index")
+    @RequestMapping("/index.html")
     public String adminInfo(){
         return "index";
     }
