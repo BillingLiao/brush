@@ -27,3 +27,14 @@
  <h1>12月8日</h1>
  <p>加入了后台html开源模版，可运行项目查看</p>
  <p>今天周六就搞这么多了</p>
+<h1>12月10日</h1>
+<p>使用cep0连接池依赖为</p>
+
+```
+<dependency>
+     <groupId>com.mchange</groupId>
+     <artifactId>c3p0</artifactId>
+     <version>0.9.5.2</version>
+</dependency>
+```
+<p>这个模版的css好复杂！！！！！！！</p>
