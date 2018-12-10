@@ -97,6 +97,13 @@
             </exclusions>
         </dependency>
         <!-- mybatis -->
+        <!-- 添加 c3p0 数据源 -->
+        <dependency>
+            <groupId>com.mchange</groupId>
+            <artifactId>c3p0</artifactId>
+            <version>0.9.5.2</version>
+        </dependency>
+        <!-- 添加 c3p0 数据源 -->
     </dependencies>
 
     <build>
