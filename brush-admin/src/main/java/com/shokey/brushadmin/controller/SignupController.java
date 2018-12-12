@@ -14,7 +14,7 @@ public class SignupController {
     @Autowired
     private UserServer userServer;
 
-    @RequestMapping("/signup")
+    @RequestMapping("/register.html")
     public String Signup(Model model){
         return "pages/samples/register";
     }

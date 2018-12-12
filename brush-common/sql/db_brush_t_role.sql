@@ -1,0 +1,2 @@
+INSERT INTO db_brush.t_role (role_id, role_name, remark, create_time) VALUES (1, 'ROLE_ADMIN', '管理权限', '2018-12-05 09:05:13');
+INSERT INTO db_brush.t_role (role_id, role_name, remark, create_time) VALUES (2, 'ROLE_USER', '基本权限', '2018-12-05 09:05:56');
