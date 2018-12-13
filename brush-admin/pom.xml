@@ -31,6 +31,22 @@
         </dependency>
 
 
+        <!-- dao -->
+        <dependency>
+            <groupId>com.shokey</groupId>
+            <artifactId>brush-dao</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <!-- dao -->
+
+        <!--common-->
+        <dependency>
+            <groupId>com.shokey</groupId>
+            <artifactId>brush-common</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <!--common-->
+
         <!-- session -->
         <dependency>
             <groupId>org.springframework.session</groupId>
@@ -77,13 +93,6 @@
         </dependency>
         <!--black-->
 
-        <!-- dao -->
-        <dependency>
-            <groupId>com.shokey</groupId>
-            <artifactId>brush-dao</artifactId>
-            <version>1.0</version>
-        </dependency>
-        <!-- dao -->
         <!-- mybatis -->
         <dependency>
             <groupId>com.baomidou</groupId>
@@ -97,6 +106,7 @@
             </exclusions>
         </dependency>
         <!-- mybatis -->
+
         <!-- 添加 c3p0 数据源 -->
         <dependency>
             <groupId>com.mchange</groupId>
@@ -104,6 +114,15 @@
             <version>0.9.5.2</version>
         </dependency>
         <!-- 添加 c3p0 数据源 -->
+
+        <!--fastjson-->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.1.31</version>
+        </dependency>
+        <!--fastjson-->
+
     </dependencies>
 
     <build>
