@@ -1,6 +1,8 @@
 package com.shokey.brushadmin.session;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.shokey.brushcommon.json.API;
+import com.shokey.brushcommon.tool.HTTPUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpStatus;
@@ -10,6 +12,7 @@ import org.springframework.security.web.util.UrlUtils;
 import org.springframework.util.Assert;
 import org.springframework.util.StringUtils;
 
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -39,7 +42,7 @@ public class AbstractSessionStrategy {
         this.destinationUrl = invalidSessionUrl;
     }
 
-    protected void onSessionInvalid(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    protected void onSessionInvalid(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         logger.info("onSessionInvalid IP:{}   URI:{}", request.getRemoteHost(), request.getRequestURI());
 
@@ -55,14 +58,17 @@ public class AbstractSessionStrategy {
             logger.info("session失效,跳转到" + targetUrl);
             redirectStrategy.sendRedirect(request, response, targetUrl);
         } else {
-            String message = "session已失效，请重新登录";
-            if (isConcurrency()) {
-                message = message + "，有可能是并发登录导致的";
+            if (HTTPUtils.isAjaxRequest(request)) {
+                String message = "session已失效，请重新登录";
+                if (isConcurrency()) {
+                    message = message + "，有可能是并发登录导致的";
+                }
+                response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                response.setContentType("application/json;charset=UTF-8");
+                response.getWriter().write(objectMapper.writeValueAsString(API.error(message)));
+            }else {
+                request.getRequestDispatcher("/login").forward(request, response);
             }
-            response.setStatus(HttpStatus.UNAUTHORIZED.value());
-            response.setContentType("application/json;charset=UTF-8");
-
-            response.getWriter().write(objectMapper.writeValueAsString(message));
         }
 
     }

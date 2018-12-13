@@ -3,6 +3,7 @@ package com.shokey.brushadmin.session;
 import org.springframework.security.web.session.SessionInformationExpiredEvent;
 import org.springframework.security.web.session.SessionInformationExpiredStrategy;
 
+import javax.servlet.ServletException;
 import java.io.IOException;
 
 public class CustomExpiredSessionStrategy extends AbstractSessionStrategy implements SessionInformationExpiredStrategy {
@@ -12,7 +13,7 @@ public class CustomExpiredSessionStrategy extends AbstractSessionStrategy implem
     }
 
     @Override
-    public void onExpiredSessionDetected(SessionInformationExpiredEvent event) throws IOException {
+    public void onExpiredSessionDetected(SessionInformationExpiredEvent event) throws IOException, ServletException {
         onSessionInvalid(event.getRequest(), event.getResponse());
     }
 
