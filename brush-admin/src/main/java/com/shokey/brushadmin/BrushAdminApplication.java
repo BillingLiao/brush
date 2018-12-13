@@ -17,7 +17,6 @@ public class BrushAdminApplication {
 //        SpringApplication.run(BrushAdminApplication.class, args);
         ConfigurableApplicationContext context = SpringApplication.run(BrushAdminApplication.class, args);
         DataSource dataSource = context.getBean(DataSource.class);
-
         System.out.println(dataSource.getClass());
     }
 }
