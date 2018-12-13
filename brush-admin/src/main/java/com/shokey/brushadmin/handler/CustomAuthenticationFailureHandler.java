@@ -2,6 +2,9 @@ package com.shokey.brushadmin.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shokey.brushadmin.config.CustomSecurityConfig;
+import com.shokey.brushcommon.exception.MyUsernameNotFoundException;
+import com.shokey.brushcommon.json.API;
+import com.shokey.brushcommon.tool.HTTPUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
@@ -28,9 +31,9 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
 
 
-        if (CustomSecurityConfig.loginResponseType.equals("JSON")) {
+        if (HTTPUtils.isAjaxRequest(request)) {
 
-            StringBuilder msg = new StringBuilder("登录失败，原因：");
+            StringBuilder msg = new StringBuilder();
 
             if (exception instanceof AccountExpiredException) {
                 msg.append("账户过期");
@@ -42,17 +45,15 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
                 msg.append("账户不允许登录");
             }else if (exception instanceof LockedException) {
                 msg.append("账号被锁定");
-            }else if (exception instanceof UsernameNotFoundException) {
+            }else if (exception instanceof MyUsernameNotFoundException) {
                 msg.append("用户名不存在");
             } else {
                 msg.append(exception.getLocalizedMessage()).append(exception.getMessage());
             }
 
-
-            String src = msg.toString()+"   "+"时间："+exception.getCause();
             response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
             response.setContentType("application/json;charset=UTF-8");
-            response.getWriter().write(objectMapper.writeValueAsString(src));
+            response.getWriter().write(objectMapper.writeValueAsString(API.login_no(msg.toString())));
 
         } else {
             request.getRequestDispatcher(this.defaultFailureUrl).forward(request, response);

@@ -2,6 +2,8 @@ package com.shokey.brushadmin.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shokey.brushadmin.config.CustomSecurityConfig;
+import com.shokey.brushcommon.json.API;
+import com.shokey.brushcommon.tool.HTTPUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.SimpleUrlLogoutSuccessHandler;
@@ -20,9 +22,9 @@ public class CustomLogoutSuccessHandler extends SimpleUrlLogoutSuccessHandler {
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
-        if (CustomSecurityConfig.loginResponseType.equals("JSON")) {
+        if (HTTPUtils.isAjaxRequest(request)) {
             response.setContentType("application/json;charset=UTF-8");
-            response.getWriter().write(objectMaper.writeValueAsString("退出登陆成功"));
+            response.getWriter().write(objectMaper.writeValueAsString(API.success("退出登录成功")));
         } else {
             super.handle(request, response, authentication);
         }

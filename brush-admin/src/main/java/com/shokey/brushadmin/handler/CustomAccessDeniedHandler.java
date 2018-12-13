@@ -2,6 +2,8 @@ package com.shokey.brushadmin.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shokey.brushadmin.config.CustomSecurityConfig;
+import com.shokey.brushcommon.json.API;
+import com.shokey.brushcommon.tool.HTTPUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
@@ -23,16 +25,17 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
     @Autowired
     private ObjectMapper objectMapper;
 
-
     @Override
-    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException exception) throws IOException, ServletException {
-        if (CustomSecurityConfig.loginResponseType.equals("JSON")) {
+    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException exception) throws IOException {
+        //如果是ajax
+        if(HTTPUtils.isAjaxRequest(request)){
 
-            String src = "权限不足，请联系管理员：" + exception.getLocalizedMessage() + exception.getMessage()+"时间："+exception.getCause();
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             response.setContentType("application/json;charset=UTF-8");
-            response.getWriter().write(objectMapper.writeValueAsString(src));
-
+            response.getWriter().write(objectMapper.writeValueAsString(API.insufficient()));
+        }else {
+            response.sendError(HttpServletResponse.SC_FORBIDDEN,
+                    exception.getMessage());
         }
     }
 }
