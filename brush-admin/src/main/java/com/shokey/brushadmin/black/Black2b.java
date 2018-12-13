@@ -12,6 +12,7 @@ public class Black2b {
 
     /**
      * 使用black算法加密密码
+     * 默认key
      * @param num
      * @param value
      * @return
@@ -19,6 +20,24 @@ public class Black2b {
     public static String encode(int num,String value){
         byte[] s;
         Blake2b blake2b = new Blake2b(32,key);
+        s = blake2b.digest(value.getBytes());
+        for (int i = 0;i<num;i++){
+            s = blake2b.digest(s);
+        }
+        return bytesToHex(s);
+    }
+
+    /**
+     * 使用black算法加密密码
+     * 自定义key
+     * @param num
+     * @param value
+     * @param salt
+     * @return
+     */
+    public static String encode(int num,String value,String salt){
+        byte[] s;
+        Blake2b blake2b = new Blake2b(32,salt.getBytes());
         s = blake2b.digest(value.getBytes());
         for (int i = 0;i<num;i++){
             s = blake2b.digest(s);
