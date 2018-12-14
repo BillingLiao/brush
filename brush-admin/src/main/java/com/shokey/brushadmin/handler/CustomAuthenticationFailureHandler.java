@@ -45,9 +45,7 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
                 msg.append("账户不允许登录");
             }else if (exception instanceof LockedException) {
                 msg.append("账号被锁定");
-            }else if (exception instanceof MyUsernameNotFoundException) {
-                msg.append("用户名不存在");
-            } else {
+            }else {
                 msg.append(exception.getLocalizedMessage()).append(exception.getMessage());
             }
 

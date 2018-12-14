@@ -3,7 +3,6 @@ package com.shokey.brushadmin.handler;
 import com.shokey.brushcommon.exception.RRException;
 import com.shokey.brushcommon.json.API;
 import com.shokey.brushcommon.json.jsonModel;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;

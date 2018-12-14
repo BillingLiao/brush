@@ -39,6 +39,6 @@ public class UserDetailServer implements UserDetailsService {
             System.out.println("拥有的权限"+role.getRoleName());
             list.add(new SimpleGrantedAuthority(role.getRoleName()));
         }
-        return new org.springframework.security.core.userdetails.User(user.getUserName(),user.getPassword(),list);
+        return new org.springframework.security.core.userdetails.User(user.getUserName(),user.getPassword(),true,true,true,true,list);
     }
 }
