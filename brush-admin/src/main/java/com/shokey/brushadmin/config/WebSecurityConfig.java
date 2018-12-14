@@ -1,6 +1,7 @@
 package com.shokey.brushadmin.config;
 
 import com.shokey.brushadmin.black.Black2b;
+import com.shokey.brushadmin.filter.MyUsernamePasswordAuthenticationFilter;
 import com.shokey.brushadmin.handler.CustomAccessDeniedHandler;
 import com.shokey.brushadmin.handler.CustomAuthenticationFailureHandler;
 import com.shokey.brushadmin.handler.CustomAuthenticationSuccessHandler;
@@ -22,8 +23,11 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.session.InvalidSessionStrategy;
 import org.springframework.security.web.session.SessionInformationExpiredStrategy;
+import org.springframework.security.web.util.matcher.AndRequestMatcher;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableGlobalMethodSecurity(prePostEnabled =true)//开启注解
@@ -51,55 +55,37 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private SessionInformationExpiredStrategy sessionInformationExpiredStrategy;
 
 
+
     @Override/*拦截器*/
     protected void configure(HttpSecurity http) throws Exception {
         http
+
+                .addFilterBefore(myUsernamePasswordAuthenticationFilter(),UsernamePasswordAuthenticationFilter.class)//自定义登录验证器
                 .csrf().disable()
                 .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler)
-                .and()
-                //权限处理
-                .authorizeRequests()
-                .antMatchers("/tikesignup").permitAll()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/signup","/register.html").permitAll()
-                .antMatchers("/fonts/**","/images/**","/js/**","/css/**","/vendors/**","/static/**").permitAll()//静态资源
-                .antMatchers("/404","/500").permitAll()//系统页面
+                .and()//权限处理
+                .authorizeRequests()//
+                .antMatchers(CustomSecurityConfig.exclusivePaths).permitAll()//无需权限
                 .anyRequest().authenticated() //其他所有资源都需要认证，登陆后访问
-                //登陆处理
-                .and()
-                .formLogin()
+                .and()//登陆处理
+                .formLogin()//
                 .loginPage(CustomSecurityConfig.formLogin_loginPage)//指定登录页是”/login”
-                .loginProcessingUrl(CustomSecurityConfig.formLogin_loginProcessingUrl)//这里的配置已经没用了
-                .successForwardUrl(CustomSecurityConfig.formLogin_successForwardUrl)//这里的配置已经没用了
+                .loginProcessingUrl(CustomSecurityConfig.formLogin_loginProcessingUrl)//现在有用了
+                .successForwardUrl(CustomSecurityConfig.formLogin_successForwardUrl)//现在有用了
                 .usernameParameter(CustomSecurityConfig.formLogin_usernameParameter)//表单name
                 .passwordParameter(CustomSecurityConfig.formLogin_passwordParameter)//表单name
-                .permitAll(true)
-                .failureHandler(customAuthenticationFailureHandler)//自定义登陆失败处理器
-                .successHandler(customAuthenticationSuccessHandler)//自定义登陆成功处理器
-//                .failureUrl("/login?loginFailed=1")// 登录失败后跳转的路径,为了给客户端提示
-//                .defaultSuccessUrl("/user")// 登录成功后默认跳转的路径;
-//                .successHandler(loginSuccessHandler()) //登录成功后可使用loginSuccessHandler()存储用户信息，可选。
-                //退出登陆
-                .and()
-                .logout()
+                .and()//退出登陆
+                .logout()//
                 .logoutUrl(CustomSecurityConfig.logout_logoutUrl)//退出url
-                .permitAll()
-                .clearAuthentication(true)
-                .invalidateHttpSession(true)
-                .deleteCookies(CustomSecurityConfig.cookieNames)
+                .permitAll()//
+                .clearAuthentication(true)//
+                .invalidateHttpSession(true)//
+                .deleteCookies(CustomSecurityConfig.cookieNames)//
                 .logoutSuccessHandler(customLogoutSuccessHandler)//退出处理器
-//                .logoutRequestMatcher(new AntPathRequestMatcher("/logout", "GET"))
-//                .logoutSuccessUrl("/login?logout=1") //退出登录
-//                .permitAll()
-//                .invalidateHttpSession(true)
-                .and()
-//                .and()
-//                .rememberMe()//登录后记住用户，下次自动登录,数据库中必须存在名为persistent_logins的表
-//                .tokenValiditySeconds(1209600);
-        //session处理
-                .sessionManagement()
+                .and()//session处理
+                .sessionManagement()//
                 .invalidSessionStrategy(invalidSessionStrategy) //session无效处理策略
-                .invalidSessionUrl(CustomSecurityConfig.invalidSessionUrl)
+                .invalidSessionUrl(CustomSecurityConfig.invalidSessionUrl)//
                 .maximumSessions(1)  //同一用户最大session数
                 .maxSessionsPreventsLogin(false) //达到最大数禁止登录（预防并发登录）
                 .expiredSessionStrategy(sessionInformationExpiredStrategy) //session过期处理策略
@@ -121,17 +107,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         });
     }
 
+    /**
+     * 我也不知道这个到底有没有用
+     * 管他妈先写在这在说
+     * @param web
+     * @throws Exception
+     */
     @Override
-    public void configure(WebSecurity web) throws Exception {
-        /*
-         * 在springboot中忽略静态文件路径，直接写静态文件的文件夹 springboot默认有静态文件的放置路径，如果应用spring
-         * security，配置忽略路径 不应该从springboot默认的静态文件开始
-         * 如：在本项目中，所有的js和css都放在static下，如果配置忽略路径，则不能以static开始
-         * 配置成web.ignoring().antMatchers("/static/*");这样是不起作用的
-         */
-
-        web.ignoring().antMatchers("/themes/**", "/script/**");
-
+    public void configure(WebSecurity web) {
+        web.ignoring().antMatchers( "/script/**");
     }
 
     @Bean
@@ -155,6 +139,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @ConditionalOnMissingBean(SessionInformationExpiredStrategy.class)
     public SessionInformationExpiredStrategy sessionInformationExpiredStrategy() {
         return new CustomExpiredSessionStrategy(CustomSecurityConfig.invalidSessionUrl);
+    }
+
+    private MyUsernamePasswordAuthenticationFilter myUsernamePasswordAuthenticationFilter() throws Exception {
+        MyUsernamePasswordAuthenticationFilter myUsernamePasswordAuthenticationFilter = new MyUsernamePasswordAuthenticationFilter();
+        myUsernamePasswordAuthenticationFilter.setAuthenticationManager(this.authenticationManager());//必要
+        myUsernamePasswordAuthenticationFilter.setAuthenticationFailureHandler(customAuthenticationFailureHandler);//处理失败
+        myUsernamePasswordAuthenticationFilter.setAuthenticationSuccessHandler(customAuthenticationSuccessHandler);//处理成功
+        return myUsernamePasswordAuthenticationFilter;
     }
 
 }
