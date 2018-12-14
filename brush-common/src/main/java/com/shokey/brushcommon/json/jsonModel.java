@@ -45,4 +45,9 @@ public class jsonModel<T> {
     public void setData(T data) {
         this.data = data;
     }
+
+    @Override
+    public String toString() {
+        return "{\"code\":"+this.code+",\"msg\":\""+this.msg+"\",\"data\":\""+this.data+"\"}";
+    }
 }
