@@ -63,7 +63,7 @@ public class User implements Serializable {
 //    private String email;//垃圾邮箱
 
     /**
-     * 状态  0：禁用   1：正常
+     * 状态  0：正常   1：未激活   2：过期   3：密码过期    4：锁定
      */
     private Integer status;
 
