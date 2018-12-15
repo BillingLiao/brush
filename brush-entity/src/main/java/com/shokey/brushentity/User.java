@@ -43,6 +43,11 @@ public class User implements Serializable {
     private String securityPassword;
 
     /**
+     * 谷歌验证器密匙
+     */
+    private String secret;
+
+    /**
      * 盐
      */
     private String salt;
@@ -104,6 +109,14 @@ public class User implements Serializable {
 
     public String getSalt() {
         return salt;
+    }
+
+    public void setSecret(String secret) {
+        this.secret = secret;
+    }
+
+    public String getSecret() {
+        return secret;
     }
 
     public void setSalt(String salt) {
