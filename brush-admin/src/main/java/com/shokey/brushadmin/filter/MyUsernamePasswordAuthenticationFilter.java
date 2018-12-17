@@ -41,7 +41,6 @@ public class MyUsernamePasswordAuthenticationFilter extends AbstractAuthenticati
     }
 
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
-        log.info("请求方法："+request.getMethod());
         if (this.postOnly && !request.getMethod().equalsIgnoreCase("POST")) {
             throw new AuthenticationServiceException("请不要使用 " + request.getMethod()+"请求！");
         } else {
