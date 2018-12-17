@@ -41,8 +41,8 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
                 msg.append("密码错误");
             }else if (exception instanceof CredentialsExpiredException) {
                 msg.append("证书过期");
-            }else if (exception instanceof DisabledException) {
-                msg.append("账户不允许登录");
+            }else if (exception instanceof DisabledException) {//这里在我找到更好的方法时没用
+                msg.append("账户未激活");
             }else if (exception instanceof LockedException) {
                 msg.append("账号被锁定");
             }else {
@@ -54,7 +54,18 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
             response.getWriter().write(objectMapper.writeValueAsString(API.login_no(msg.toString())));
 
         } else {
-            request.getRequestDispatcher(this.defaultFailureUrl).forward(request, response);
+            if (exception instanceof AccountExpiredException)
+                request.getRequestDispatcher(this.defaultFailureUrl).forward(request, response);
+            else if (exception instanceof BadCredentialsException)
+                request.getRequestDispatcher(this.defaultFailureUrl).forward(request, response);
+            else if (exception instanceof CredentialsExpiredException)
+                request.getRequestDispatcher(this.defaultFailureUrl).forward(request, response);
+            else if (exception instanceof DisabledException)
+                request.getRequestDispatcher(this.defaultFailureUrl).forward(request, response);
+            else if (exception instanceof LockedException)
+                request.getRequestDispatcher(this.defaultFailureUrl).forward(request, response);
+            else
+                request.getRequestDispatcher(this.defaultFailureUrl).forward(request, response);
         }
 
     }
