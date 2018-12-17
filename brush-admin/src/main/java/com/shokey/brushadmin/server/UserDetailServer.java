@@ -32,13 +32,20 @@ public class UserDetailServer implements UserDetailsService {
         if (user == null)
             throw new MyUsernameNotFoundException("用户不存在");
         //查询权限
-        List<Integer> roleIds = roleMapper.findByMobile(s);
         List<GrantedAuthority> list=new ArrayList<>();
-        for (Integer roleId:roleIds) {
-            Role role = roleMapper.findByRoleId(roleId);
-            System.out.println("拥有的权限"+role.getRoleName());
-            list.add(new SimpleGrantedAuthority(role.getRoleName()));
+        //看来判断用户激活只有在这搞了
+        if (user.getStatus() == 1){
+            //设置未激活权限activation
+            list.add(new SimpleGrantedAuthority("ROLE_ACTIVATION"));//未激活权限
+            return new org.springframework.security.core.userdetails.User(user.getUserName(),user.getPassword(),list);
+        }else {
+            List<Integer> roleIds = roleMapper.findByMobile(s);
+            for (Integer roleId:roleIds) {
+                Role role = roleMapper.findByRoleId(roleId);
+                System.out.println("拥有的权限"+role.getRoleName());
+                list.add(new SimpleGrantedAuthority(role.getRoleName()));
+            }
+            return new org.springframework.security.core.userdetails.User(user.getUserName(),user.getPassword(),true,true,true,true,list);
         }
-        return new org.springframework.security.core.userdetails.User(user.getUserName(),user.getPassword(),true,true,true,true,list);
     }
 }
