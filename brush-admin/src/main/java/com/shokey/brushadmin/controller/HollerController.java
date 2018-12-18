@@ -27,7 +27,7 @@ public class HollerController {
         return API.error("请使用其他方式请求！");
     }
 
-    @RequestMapping()
+    @RequestMapping("/activation")
     public jsonModel Activation(@RequestParam String code){
         return userServer.Activation(code);
     }
