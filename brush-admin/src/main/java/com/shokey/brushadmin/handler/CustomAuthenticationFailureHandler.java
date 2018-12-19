@@ -1,14 +1,11 @@
 package com.shokey.brushadmin.handler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.shokey.brushadmin.config.CustomSecurityConfig;
-import com.shokey.brushcommon.exception.MyUsernameNotFoundException;
 import com.shokey.brushcommon.json.API;
 import com.shokey.brushcommon.tool.HTTPUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.*;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.security.web.util.UrlUtils;
 import org.springframework.stereotype.Component;
