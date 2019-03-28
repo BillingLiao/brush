@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-cn" xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <!-- Required meta tags -->
@@ -30,9 +30,9 @@
               </div>
               <h4>要注册吗？</h4>
               <h6 class="font-weight-light">只需要填写下面的信息就好了，其他的交给我们</h6>
-              <form class="pt-3">
+              <form class="pt-3" th:action="@{/tikesignup}" th:method="post">
                 <div class="form-group">
-                  <input type="text" class="form-control form-control-lg" id="exampleInputUsername1" placeholder="手机号">
+                  <input type="text" name="phone" class="form-control form-control-lg" id="exampleInputUsername1" placeholder="手机号">
                 </div>
                 <div class="form-group">
                   <input type="Password" class="form-control form-control-lg" id="exampleInputEmail1" placeholder="密码">
@@ -48,7 +48,7 @@
                   <!--</select>-->
                 <!--</div>-->
                 <div class="form-group">
-                  <input type="password" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="请重复">
+                  <input type="password" name="pass" class="form-control form-control-lg" id="exampleInputPassword1" placeholder="请重复">
                 </div>
                 <div class="mb-4">
                   <div class="form-check">
@@ -59,7 +59,7 @@
                   </div>
                 </div>
                 <div class="mt-3">
-                  <a class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" href="./login.html">注册</a>
+                  <button class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn" type="submit">注册</button>
                 </div>
                 <div class="text-center mt-4 font-weight-light">
                   已经是我们的人？ <a href="login.html" class="text-primary">登录</a>

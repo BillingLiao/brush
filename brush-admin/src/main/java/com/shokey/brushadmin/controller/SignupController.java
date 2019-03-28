@@ -31,7 +31,7 @@ public class SignupController {
      * @throws Exception
      */
     @PostMapping("/tikesignup")
-    public String Signup(HttpServletRequest request, @RequestParam String phone, @RequestParam String pass, Model model) throws Exception {
+    public String Signup(HttpServletRequest request, @RequestParam("phone") String phone, @RequestParam("pass") String pass, Model model) throws Exception {
         if (!HTTPUtils.isAjaxRequest(request)) {
             if (userServer.Signup(phone, pass))
                 return "pages/samples/login";

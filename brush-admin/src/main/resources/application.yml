@@ -4,48 +4,41 @@ server:
     uri-encoding: UTF-8
     max-threads: 1000
     min-spare-threads: 30
-  port: 8080
+  port: 8081
 
 # mysql
 spring:
-#  datasource:
-#    url: jdbc:mysql://kylinhash.com:65521/db_brush?useUnicode=true&characterEncoding=UTF-8&useSSL=true&serverTimezone=UTC
-#    username: root
-#    password: 123456
-#    dbcp2:
-#      driver-class-name: com.mysql.cj.jdbc.Driver
-#  jackson:
-#    time-zone: GMT+8
-#    date-format: yyyy-MM-dd HH:mm:ss
+  datasource:
+    url: jdbc:mysql://38.21.243.149:3306/db_brush?useUnicode=true&characterEncoding=UTF-8&useSSL=true&serverTimezone=UTC
+    username: root
+    password: linglouyi
+    hikari:
+      minimum-idle: 5
+      maximum-pool-size: 12
+      connection-timeout: 200000
+      idle-timeout: 3000000
+      max-lifetime: 1200000
+      auto-commit: true
+      pool-name: BrushAdmin
+    dbcp2:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
 # redis
   redis:
-    host: 127.0.0.1
+    host: 38.21.243.149
     port: 6379
-    password:
+    password: linglouyi
     jedis:
       pool:
         max-idle: 8
         max-wait:
     timeout: 5000ms
+  thymeleaf:
+    cache: false
 # 垃圾，并不会打印sql
 logging:
   level:
     com.example.demo.dao : debug
     #ddns.kylinhash.com:65521
-c3p0:
-  jdbcUrl: jdbc:mysql://127.0.0.1:3306/db_brush?useUnicode=true&characterEncoding=UTF-8&useSSL=true&serverTimezone=UTC
-  user: root
-  password: 123456
-  driverClass: com.mysql.cj.jdbc.Driver
-  minPoolSize: 2
-  maxPoolSize: 10
-  maxIdleTime: 1800000
-  acquireIncrement: 1
-  maxStatements: 1000
-  initialPoolSize: 3
-  idleConnectionTestPeriod: 90
-  checkoutTimeout: 5000
-  acquireRetryAttempts: 30
-  acquireRetryDelay: 1000
-  breakAfterAcquireFailure: false
-  testConnectionOnCheckout: false

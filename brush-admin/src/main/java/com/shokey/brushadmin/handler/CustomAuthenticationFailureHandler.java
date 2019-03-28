@@ -21,8 +21,12 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
 
     private String defaultFailureUrl;
 
+    private final ObjectMapper objectMapper;
+
     @Autowired
-    private ObjectMapper objectMapper;
+    public CustomAuthenticationFailureHandler(ObjectMapper objectMapper) {
+        this.objectMapper = objectMapper;
+    }
 
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {

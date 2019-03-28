@@ -2,7 +2,8 @@
 SQLyog Ultimate v11.33 (64 bit)
 MySQL - 5.7.17-log : Database - db_brush
 *********************************************************************
-*/
+*/
+
 
 /*!40101 SET NAMES utf8 */;
 
@@ -21,15 +22,19 @@ USE `db_brush`;
 DROP TABLE IF EXISTS `t_certification`;
 
 CREATE TABLE `t_certification` (
-  `
-
+  `
+
+
+
 real_name_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '实名认证编号',
   `real_name` varchar(20) NOT NULL COMMENT '真实姓名',
   `id_number` varchar(255) NOT NULL COMMENT '身份证号',
   `img_front` varchar(255) NOT NULL COMMENT '身份证正面照',
   `img_back` varchar(255) NOT NULL COMMENT '身份证背面照',
-  PRIMARY KEY (`
-
+  PRIMARY KEY (`
+
+
+
 real_name_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -206,6 +211,7 @@ CREATE TABLE `t_user` (
   `password` varchar(100) NOT NULL COMMENT '登录密码',
   `security_password` varchar(100) DEFAULT NULL COMMENT '安全密码',
   `salt` varchar(20) NOT NULL COMMENT '盐',
+  `secret` varchar(100) NOT NULL COMMENT '谷歌验证器',
   `mobile` varchar(100) DEFAULT NULL COMMENT '手机号',
   `qq` varchar(100) DEFAULT NULL COMMENT 'QQ',
   `status` tinyint(4) DEFAULT NULL COMMENT '状态：0-正常,1-禁用',
@@ -222,7 +228,7 @@ DROP TABLE IF EXISTS `t_user_role`;
 CREATE TABLE `t_user_role` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `role_id` int(11) DEFAULT NULL COMMENT '角色id',
-  `user_id` int(11) DEFAULT NULL COMMENT '用户编号',
+  `mobile` varchar(20) DEFAULT NULL COMMENT '用户手机号',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='用户角色表';
 

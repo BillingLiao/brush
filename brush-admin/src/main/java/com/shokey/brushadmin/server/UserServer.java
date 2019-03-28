@@ -29,7 +29,6 @@ public class UserServer {
     private UserMapper userMapper;
 
     //注册
-    @RequestMapping("/tikesignup")
     @Transactional(rollbackOn = Exception.class)
     public boolean Signup(String phone, String password) throws Exception {
         User user = new User();
@@ -46,7 +45,7 @@ public class UserServer {
         if (userMapper.initialUser(user) != 0){
             log.info("写入用户成功");
             //授权用户
-            if (userMapper.initialRole(phone) != 0){
+            if (userMapper.initialRole("2",phone) != 0){
                 log.info("授权成功");
                 return true;
             }else {
