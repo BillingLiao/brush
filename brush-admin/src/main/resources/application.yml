@@ -19,9 +19,9 @@ spring:
 #    date-format: yyyy-MM-dd HH:mm:ss
 # redis
   redis:
-    host: ddns.kylinhash.com
-    port: 65520
-    password: linglouyi
+    host: 127.0.0.1
+    port: 6379
+    password:
     jedis:
       pool:
         max-idle: 8
@@ -31,8 +31,9 @@ spring:
 logging:
   level:
     com.example.demo.dao : debug
+    #ddns.kylinhash.com:65521
 c3p0:
-  jdbcUrl: jdbc:mysql://ddns.kylinhash.com:65521/db_brush?useUnicode=true&characterEncoding=UTF-8&useSSL=true&serverTimezone=UTC
+  jdbcUrl: jdbc:mysql://127.0.0.1:3306/db_brush?useUnicode=true&characterEncoding=UTF-8&useSSL=true&serverTimezone=UTC
   user: root
   password: 123456
   driverClass: com.mysql.cj.jdbc.Driver
